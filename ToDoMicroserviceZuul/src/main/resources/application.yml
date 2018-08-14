@@ -1,0 +1,43 @@
+### Spring properties
+# Service registers under this name
+spring:
+  application:
+    name: ToDoMicroserviceZuul
+
+# Discovery Server Access
+eureka:
+    client:
+      serviceUrl:
+        defaultZone: http://localhost:8761/eureka
+
+# HTTP Server (Tomcat) Port
+server: 
+  port: 8764
+# Zuul settings
+
+zuul:
+  routes:
+    user:
+      path: /user_microservice/**
+      service-id: ToDoMicroserviceUserService
+     
+    note:
+      path: /note_microservice/**      
+      service-id: ToDoMicroserviceNoteService
+      
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000 
+
+ribbon:  
+  ReadTimeout: 60000  
+  ConnectTimeout: 60000  
+
+
+  host: 
+    connect-timeout-millis: 10000
+    socket-timeout-millis: 60000
